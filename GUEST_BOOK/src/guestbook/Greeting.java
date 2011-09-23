@@ -12,4 +12,6 @@ public class Greeting {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
+	
+	
 }

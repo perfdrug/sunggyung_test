@@ -23,7 +23,7 @@ public class GUEST_BOOKServlet extends HttpServlet {
 		} else {
 			resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
 		}
-		
+		 
 		
 		
 	}

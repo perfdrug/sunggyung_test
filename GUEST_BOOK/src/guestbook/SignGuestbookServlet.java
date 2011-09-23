@@ -23,7 +23,7 @@ public class SignGuestbookServlet extends HttpServlet {
 		String contetn = req.getParameter("content");
 		
 		if (contetn == null) {
-			contetn = "no content";
+			contetn = "no content"; 
 		} 
 		
 		if (user != null) {
