@@ -1,8 +1,10 @@
 package guestbook;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Logger;
 
+import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +20,21 @@ public class SignGuestbookServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		UserService userService = UserServiceFactory.getUserService();
+		req.setCharacterEncoding("utf-8");
+
 		User user = userService.getCurrentUser();
+		String content = req.getParameter("content");
 		
-		String contetn = req.getParameter("content");
+		Date date = new Date();
+		Greeting greeting = new Greeting(user, content, date);
 		
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		try {
+			pm.makePersistent(greeting);
+		} finally {
+			pm.close();
+		}
+		/*
 		if (contetn == null) {
 			contetn = "no content"; 
 		} 
@@ -30,7 +43,7 @@ public class SignGuestbookServlet extends HttpServlet {
 			log.info("posted by user " + user.getNickname() + ": " + contetn);
 			
 		}
-		
+		*/
 		res.sendRedirect("/guestbook.jsp");
 	}
 }
